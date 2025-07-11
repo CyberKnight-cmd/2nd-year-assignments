@@ -1,6 +1,9 @@
 #include <stdio.h>
 
 int main() {
-    // TODO: Implement solution here
+    int num;
+    printf("Enter the number : ");
+    scanf("%d", &num);
+    printf((num%2) ? "Odd number" : "Even number");
     return 0;
 }
