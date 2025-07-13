@@ -18,7 +18,7 @@ Searching student IDs, roll numbers, or item codes from runtime inputs.
 ```
 
 Input: n = 5
-Array: \[10, 20, 30, 40, 50]
+Array: [10, 20, 30, 40, 50]
 Key: 30
 Output: 30 found at index 2
 
@@ -40,7 +40,7 @@ Leaderboard ranking, top scores, or priority data extraction.
 ```
 
 Input: n = 6
-Array: \[11, 25, 43, 89, 57, 99]
+Array: [11, 25, 43, 89, 57, 99]
 k = 3
 Output: 57 is the 3rd maximum number
 
@@ -62,7 +62,7 @@ Finding minimum marks, minimum temperature readings, etc.
 ```
 
 Input: n = 4
-Array: \[55, 12, 78, 33]
+Array: [55, 12, 78, 33]
 Output: Minimum = 12
 
 ```
@@ -83,7 +83,7 @@ Finding items in grid data like seating plans, matrices, or tables.
 ```
 
 Input: m=2, n=3
-Array: \[\[1,2,3],\[4,5,6]]
+Array: [[1,2,3],[4,5,6]]
 Key: 5
 Output: 5 found at (1,1)
 
@@ -104,7 +104,7 @@ Maximum rainfall data in a grid, highest temperature across regions, etc.
 🔷 **Test case example:**  
 ```
 
-Input: \[\[7,2],\[3,9]]
+Input: [[7,2],[3,9]]
 Output: Maximum = 9
 
 ```
@@ -124,7 +124,7 @@ Lowest prices across a store grid, minimum elevation data, etc.
 🔷 **Test case example:**  
 ```
 
-Input: \[\[8,3],\[6,4]]
+Input: [[8,3],[6,4]]
 Output: Minimum = 3
 
 ```
@@ -144,8 +144,8 @@ Merging two ordered datasets like student lists from two classes.
 🔷 **Test case example:**  
 ```
 
-Input: arr1 = \[10,20,30], arr2 = \[15,25,35]
-Output: \[10,15,20,25,30,35]
+Input: arr1 = [10,20,30], arr2 = [15,25,35]
+Output: [10,15,20,25,30,35]
 
 ```
 
@@ -164,8 +164,8 @@ Combining unordered inventory from two warehouses and sorting it.
 🔷 **Test case example:**  
 ```
 
-Input: arr1 = \[5,2,8], arr2 = \[7,1,6]
-Output: \[1,2,5,6,7,8]
+Input: arr1 = [5,2,8], arr2 = [7,1,6]
+Output: [1,2,5,6,7,8]
 
 ```
 
@@ -184,8 +184,8 @@ Removing invalid entries or bulk-deleting data within a range.
 🔷 **Test case example:**  
 ```
 
-Input: \[10,20,30,40,50], lower=1, upper=3
-Output: \[10,50]
+Input: [10,20,30,40,50], lower=1, upper=3
+Output: [10,50]
 
 ```
 
@@ -204,8 +204,8 @@ Adding new data entries dynamically, extending array capacity, or shrinking to o
 🔷 **Test case example:**  
 ```
 
-Initial input: \[1,2,3]
-Extend to: \[1,2,3,4,5] after realloc
+Initial input: [1,2,3]
+Extend to: [1,2,3,4,5] after realloc
 
 ```
 
