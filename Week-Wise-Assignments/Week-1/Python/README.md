@@ -209,7 +209,7 @@ Output:
 
 ### 💡 **Author**
 
-_Assignment documented by Cyber Knight with assistance from ChatGPT for clarity and structured learning._
+_Assignment documented by Cyber Knight for clarity and structured learning._
 
 ---
 
