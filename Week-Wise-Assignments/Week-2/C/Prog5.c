@@ -19,7 +19,7 @@ Queue* createQueue(){
 }
 
 void resize(Queue *queue){
-    queue->capacity += 1;
+    queue->capacity *= 2;
     queue->arr = (char*)realloc(queue->arr, queue->capacity*sizeof(char));
 }
 
