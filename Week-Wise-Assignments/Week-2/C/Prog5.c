@@ -44,7 +44,7 @@ void display(Queue *queue){
     printf("\n");
 }
 
-bool isValidChar(char c){
+bool filtered(char c){
     if((c >= '0' && c <= '9') || 
        (c >= 'A' && c <= 'Z') || 
        (c >= 'a' && c <= 'z'))
@@ -80,7 +80,7 @@ int main(){
         if(a == '\n')
             break;
         
-        if(isValidChar(a)){
+        if(filtered(a)){
             if(a >= 'A' && a <= 'Z')
                 a = a + 32;
             enqueue(str, a);
