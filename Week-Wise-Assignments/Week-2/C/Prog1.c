@@ -47,7 +47,7 @@ int peek(Stack *stack){
 
 void display(Stack *stack){
     if(stack->top==-1){
-        printf("Queue empty!");
+        printf("Stack empty!");
         return;
     }
 
