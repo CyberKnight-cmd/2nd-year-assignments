@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* createNode(int data) {
+    struct Node* node = malloc(sizeof(struct Node));
+    node->data = data;
+    node->next = NULL;
+    return node;
+}
+
+struct Node* pairwiseSwap(struct Node* head) {
+    if (!head || !head->next) return head;
+    
+    struct Node* newHead = head->next;
+    head->next = pairwiseSwap(newHead->next);
+    newHead->next = head;
+    return newHead;
+}
+
+void display(struct Node* head) {
+    while (head) {
+        printf("%d ", head->data);
+        head = head->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    struct Node* head = createNode(1);
+    head->next = createNode(2);
+    head->next->next = createNode(3);
+    head->next->next->next = createNode(4);
+    
+    printf("Original: ");
+    display(head);
+    
+    head = pairwiseSwap(head);
+    printf("Pairwise swapped: ");
+    display(head);
+    
+    return 0;
+}

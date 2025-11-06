@@ -1,0 +1,5 @@
+target/
+*.jar
+*.db
+__pycache__/
+.vscode/

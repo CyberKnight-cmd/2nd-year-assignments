@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CRM Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#64748b'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="h-full bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 transition-all duration-300">
+    <!-- Navigation -->
+    <nav class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-lg border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center space-x-2 text-xl font-bold text-gray-900 dark:text-white">
+                        <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-users text-white text-sm"></i>
+                        </div>
+                        <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">CRM Pro</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/" class="px-4 py-2 rounded-lg text-sm font-medium bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+                        <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
+                    </a>
+                    <a href="/customers" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200">
+                        <i class="fas fa-users mr-2"></i> Customers
+                    </a>
+                    <a href="/customers/leads" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200">
+                        <i class="fas fa-star mr-2"></i> Leads
+                    </a>
+                    <a href="/communications" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200">
+                        <i class="fas fa-comments mr-2"></i> Communications
+                    </a>
+                    <a href="/analytics" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200">
+                        <i class="fas fa-chart-bar mr-2"></i> Analytics
+                    </a>
+                    <a href="/reports" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200">
+                        <i class="fas fa-file-alt mr-2"></i> Reports
+                    </a>
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-lg text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+                <i class="fas fa-tachometer-alt text-blue-600 mr-3"></i>Dashboard
+            </h1>
+            <p class="text-gray-600 dark:text-gray-400">Welcome back! Here's what's happening with your business today.</p>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Total Customers -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 p-6 border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Total Customers</p>
+                        <p class="text-3xl font-bold text-gray-900 dark:text-white" th:text="${totalCustomers}">0</p>
+                        <p class="text-sm text-green-600 dark:text-green-400 mt-1">
+                            <i class="fas fa-arrow-up mr-1"></i>+12% from last month
+                        </p>
+                    </div>
+                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-users text-white text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Leads -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 p-6 border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Active Leads</p>
+                        <p class="text-3xl font-bold text-gray-900 dark:text-white" th:text="${totalLeads}">0</p>
+                        <p class="text-sm text-yellow-600 dark:text-yellow-400 mt-1">
+                            <i class="fas fa-star mr-1"></i>High priority
+                        </p>
+                    </div>
+                    <div class="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-star text-white text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Revenue -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 p-6 border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Total Revenue</p>
+                        <p class="text-3xl font-bold text-gray-900 dark:text-white" th:text="'$' + ${totalRevenue}">$0</p>
+                        <p class="text-sm text-green-600 dark:text-green-400 mt-1">
+                            <i class="fas fa-arrow-up mr-1"></i>+8% from last month
+                        </p>
+                    </div>
+                    <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-dollar-sign text-white text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pending Revenue -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 p-6 border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Pending Revenue</p>
+                        <p class="text-3xl font-bold text-gray-900 dark:text-white" th:text="'$' + ${pendingRevenue}">$0</p>
+                        <p class="text-sm text-blue-600 dark:text-blue-400 mt-1">
+                            <i class="fas fa-clock mr-1"></i>Awaiting payment
+                        </p>
+                    </div>
+                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-clock text-white text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts and Lists -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Top Leads -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                        <i class="fas fa-trophy text-yellow-500 mr-2"></i>Top Leads
+                    </h3>
+                    <a href="/customers/leads" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-sm font-medium">
+                        View All <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+                <div class="space-y-4">
+                    <!-- Pinned Lead -->
+                    <div th:if="${pinnedLead}" class="p-4 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-2 border-yellow-200 dark:border-yellow-700 rounded-xl">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold">
+                                    <i class="fas fa-thumbtack"></i>
+                                </div>
+                                <div>
+                                    <div class="flex items-center space-x-2">
+                                        <a th:href="@{/customers/{id}(id=${pinnedLead.id})}" class="font-semibold text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 cursor-pointer" th:text="${pinnedLead.fullName}">Pinned Lead</a>
+                                        <span class="px-2 py-1 bg-yellow-500 text-white text-xs font-bold rounded-full">PINNED</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">ID: <span th:text="${pinnedLead.id}">1</span> • <span th:text="${pinnedLead.email}">email@example.com</span></p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="px-3 py-1 bg-gradient-to-r from-yellow-400 to-orange-400 text-white text-sm font-bold rounded-full" th:text="${pinnedLead.leadScore}">85</span>
+                                <button onclick="unpinLead()" class="p-1 text-gray-500 hover:text-red-500 transition-colors" title="Unpin lead">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div th:if="${topLeads.empty}" class="text-center py-8 text-gray-500 dark:text-gray-400">
+                        <i class="fas fa-inbox text-4xl mb-4"></i>
+                        <p>No leads available</p>
+                        <a href="/customers/new" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-sm">Add your first lead</a>
+                    </div>
+                    <div th:each="lead : ${topLeads}" class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+                                <span th:text="${#strings.substring(lead.firstName, 0, 1)}">J</span>
+                            </div>
+                            <div>
+                                <a th:href="@{/customers/{id}(id=${lead.id})}" class="font-semibold text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 cursor-pointer" th:text="${lead.fullName}">John Doe</a>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">ID: <span th:text="${lead.id}">1</span> • <span th:text="${lead.email}">john@example.com</span></p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="px-3 py-1 bg-gradient-to-r from-yellow-400 to-orange-400 text-white text-sm font-bold rounded-full" th:text="${lead.leadScore}">85</span>
+                            <button th:onclick="'pinLead(' + ${lead.id} + ')'" class="p-1 text-gray-400 hover:text-yellow-500 transition-colors" title="Pin this lead">
+                                <i class="fas fa-thumbtack"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sales Pipeline -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 border border-gray-100 dark:border-gray-700">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                        <i class="fas fa-chart-pie text-blue-500 mr-2"></i>Sales Pipeline
+                    </h3>
+                </div>
+                <div class="space-y-6">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Leads</span>
+                            <span class="text-sm font-bold text-gray-900 dark:text-white" th:text="${totalLeads}">0</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
+                            <div class="bg-gradient-to-r from-yellow-400 to-orange-500 h-3 rounded-full transition-all duration-1000" th:style="'width: ' + ${(totalLeads + totalProspects + activeCustomers) > 0 ? (totalLeads * 100 / (totalLeads + totalProspects + activeCustomers)) : 0} + '%'"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Prospects</span>
+                            <span class="text-sm font-bold text-gray-900 dark:text-white" th:text="${totalProspects}">0</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
+                            <div class="bg-gradient-to-r from-blue-400 to-blue-600 h-3 rounded-full transition-all duration-1000" th:style="'width: ' + ${(totalLeads + totalProspects + activeCustomers) > 0 ? (totalProspects * 100 / (totalLeads + totalProspects + activeCustomers)) : 0} + '%'"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Customers</span>
+                            <span class="text-sm font-bold text-gray-900 dark:text-white" th:text="${activeCustomers}">0</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
+                            <div class="bg-gradient-to-r from-green-400 to-emerald-500 h-3 rounded-full transition-all duration-1000" th:style="'width: ' + ${(totalLeads + totalProspects + activeCustomers) > 0 ? (activeCustomers * 100 / (totalLeads + totalProspects + activeCustomers)) : 0} + '%'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="mt-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 border border-gray-100 dark:border-gray-700">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6">
+                <i class="fas fa-bolt text-yellow-500 mr-2"></i>Quick Actions
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <a href="/customers/new" class="flex items-center p-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transform hover:scale-105 transition-all duration-200 shadow-lg">
+                    <i class="fas fa-user-plus text-2xl mr-4"></i>
+                    <div>
+                        <p class="font-semibold">Add Customer</p>
+                        <p class="text-sm opacity-90">Create new customer record</p>
+                    </div>
+                </a>
+                <a href="/customers" class="flex items-center p-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl hover:from-green-600 hover:to-emerald-600 transform hover:scale-105 transition-all duration-200 shadow-lg">
+                    <i class="fas fa-list text-2xl mr-4"></i>
+                    <div>
+                        <p class="font-semibold">View All Customers</p>
+                        <p class="text-sm opacity-90">Manage customer database</p>
+                    </div>
+                </a>
+                <a href="/customers/leads" class="flex items-center p-4 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-xl hover:from-purple-600 hover:to-indigo-600 transform hover:scale-105 transition-all duration-200 shadow-lg">
+                    <i class="fas fa-star text-2xl mr-4"></i>
+                    <div>
+                        <p class="font-semibold">Manage Leads</p>
+                        <p class="text-sm opacity-90">Track and score leads</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+        }
+
+        // Load dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.documentElement.classList.add('dark');
+        }
+        
+        function pinLead(customerId) {
+            fetch('/pin-lead', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'customerId=' + customerId
+            }).then(() => {
+                location.reload();
+            });
+        }
+        
+        function unpinLead() {
+            fetch('/unpin-lead', {
+                method: 'POST'
+            }).then(() => {
+                location.reload();
+            });
+        }
+    </script>
+</body>
+</html>

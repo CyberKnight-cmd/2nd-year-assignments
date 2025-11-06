@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers - CRM Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+</head>
+<body class="h-full bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 transition-all duration-300">
+    <!-- Navigation -->
+    <nav class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-lg border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center space-x-2 text-xl font-bold text-gray-900 dark:text-white">
+                        <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-users text-white text-sm"></i>
+                        </div>
+                        <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">CRM Pro</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200">
+                        <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
+                    </a>
+                    <a href="/customers" class="px-4 py-2 rounded-lg text-sm font-medium bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+                        <i class="fas fa-users mr-2"></i> Customers
+                    </a>
+                    <a href="/customers/leads" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200">
+                        <i class="fas fa-star mr-2"></i> Leads
+                    </a>
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-lg text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+                    <i class="fas fa-users text-blue-600 mr-3"></i>Customers
+                </h1>
+                <p class="text-gray-600 dark:text-gray-400">Manage your customer database and relationships</p>
+            </div>
+            <a href="/customers/new" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transform hover:scale-105 transition-all duration-200 shadow-lg font-medium">
+                <i class="fas fa-plus mr-2"></i>Add Customer
+            </a>
+        </div>
+
+        <!-- Customer Table -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead class="bg-gray-50 dark:bg-gray-700">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Customer</th>
+                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Contact</th>
+                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Company</th>
+                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Lead Score</th>
+                            <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        <tr th:if="${customers.empty}">
+                            <td colspan="6" class="px-6 py-12 text-center">
+                                <div class="text-gray-500 dark:text-gray-400">
+                                    <i class="fas fa-inbox text-4xl mb-4"></i>
+                                    <p class="text-lg font-medium mb-2">No customers found</p>
+                                    <p class="text-sm">Get started by adding your first customer</p>
+                                    <a href="/customers/new" class="inline-block mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                                        <i class="fas fa-plus mr-2"></i>Add Customer
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr th:each="customer : ${customers}" class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                                        <span th:text="${#strings.substring(customer.firstName, 0, 1)}">J</span>
+                                    </div>
+                                    <div>
+                                        <a th:href="@{/customers/{id}(id=${customer.id})}" class="text-sm font-medium text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 cursor-pointer" th:text="${customer.fullName}">John Doe</a>
+                                        <div class="text-sm text-gray-500 dark:text-gray-400">Customer ID: <span th:text="${customer.id}">1</span></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900 dark:text-white" th:text="${customer.email}">john@example.com</div>
+                                <div class="text-sm text-gray-500 dark:text-gray-400" th:text="${customer.phone ?: 'No phone'}">+1234567890</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900 dark:text-white" th:text="${customer.company ?: 'No company'}">Company Inc</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="inline-flex px-3 py-1 text-xs font-semibold rounded-full"
+                                      th:class="'inline-flex px-3 py-1 text-xs font-semibold rounded-full ' + (${customer.status == 'LEAD'} ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300' : (${customer.status == 'PROSPECT'} ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300' : (${customer.status == 'CUSTOMER'} ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300')))"
+                                      th:text="${customer.status}">LEAD</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <span class="inline-flex px-3 py-1 text-xs font-bold rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white" th:text="${customer.leadScore}">85</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+
+                                <a th:href="@{/customers/{id}/edit(id=${customer.id})}" class="inline-flex items-center px-3 py-1 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 transition-colors duration-200">
+                                    <i class="fas fa-edit mr-1"></i>Edit
+                                </a>
+                                <button th:if="${pinnedLeadId != customer.id}" th:onclick="'pinLead(' + ${customer.id} + ')'" class="inline-flex items-center px-3 py-1 bg-yellow-100 text-yellow-700 rounded-lg hover:bg-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-300 dark:hover:bg-yellow-800 transition-colors duration-200" title="Pin to dashboard">
+                                    <i class="fas fa-thumbtack mr-1"></i>Pin
+                                </button>
+                                <button th:if="${pinnedLeadId == customer.id}" onclick="unpinLead()" class="inline-flex items-center px-3 py-1 bg-orange-100 text-orange-700 rounded-lg hover:bg-orange-200 dark:bg-orange-900/20 dark:text-orange-300 dark:hover:bg-orange-800 transition-colors duration-200" title="Unpin from dashboard">
+                                    <i class="fas fa-times mr-1"></i>Unpin
+                                </button>
+                                <form th:action="@{/customers/{id}/delete(id=${customer.id})}" method="post" class="inline">
+                                    <button type="submit" onclick="return confirm('Are you sure?')" class="inline-flex items-center px-3 py-1 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 dark:bg-red-900 dark:text-red-300 dark:hover:bg-red-800 transition-colors duration-200">
+                                        <i class="fas fa-trash mr-1"></i>Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+        }
+
+        // Load dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.documentElement.classList.add('dark');
+        }
+        
+        function pinLead(customerId) {
+            fetch('/pin-lead', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'customerId=' + customerId
+            }).then(() => {
+                location.reload();
+            });
+        }
+        
+        function unpinLead() {
+            fetch('/unpin-lead', {
+                method: 'POST'
+            }).then(() => {
+                location.reload();
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+QUICK START GUIDE
+=================
+
+STEP 1: Start the application
+------------------------------
+Run: python app.py
+
+STEP 2: Use demo data
+---------------------
+Visit: http://localhost:5000/use-demo-data
+
+This will load you into the demo account with 7 days of data!
+
+STEP 3: Explore
+---------------
+- Dashboard: See AI insights, stats, and charts
+- Tasks: Create tasks with AI (try NLP parsing!)
+- Pomodoro: Track focus time
+- Analytics: View productivity patterns
+- Goals: Set and track goals
+
+IMPORTANT:
+----------
+Always visit /use-demo-data first to see the populated data!
+Otherwise you'll see empty dashboard (new random user).
+
+To populate fresh data:
+python populate_data.py
+
+Then visit: http://localhost:5000/use-demo-data

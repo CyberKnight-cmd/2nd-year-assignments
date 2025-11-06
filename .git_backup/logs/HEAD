@@ -1,0 +1,35 @@
+0000000000000000000000000000000000000000 50008b29f377ef2a55c604bda2e4591e693b5713 Arya Gupta <aryagupta164@gmail.com> 1752189175 +0530	commit (initial): first commit
+50008b29f377ef2a55c604bda2e4591e693b5713 0000000000000000000000000000000000000000 Arya Gupta <aryagupta164@gmail.com> 1752189175 +0530	Branch: renamed refs/heads/master to refs/heads/main
+0000000000000000000000000000000000000000 50008b29f377ef2a55c604bda2e4591e693b5713 Arya Gupta <aryagupta164@gmail.com> 1752189175 +0530	Branch: renamed refs/heads/master to refs/heads/main
+50008b29f377ef2a55c604bda2e4591e693b5713 b361adf29b16b99819a9c71ad385806405a47e09 Arya Gupta <aryagupta164@gmail.com> 1752191020 +0530	commit: Templeate added
+b361adf29b16b99819a9c71ad385806405a47e09 ec116a667686b0c2d548f6ad0bcb2c61408304d8 Arya Gupta <aryagupta164@gmail.com> 1752191344 +0530	commit: Fixing README
+ec116a667686b0c2d548f6ad0bcb2c61408304d8 532d742fa4377b576b10efbf68dd60c3a05f24d8 Arya Gupta <aryagupta164@gmail.com> 1752191424 +0530	commit: Questions PDF added
+532d742fa4377b576b10efbf68dd60c3a05f24d8 adaa3507b6897effbee34d06fe3e3cdbe4ff7771 Arya Gupta <aryagupta164@gmail.com> 1752192323 +0530	commit: Solved Question 1
+adaa3507b6897effbee34d06fe3e3cdbe4ff7771 c67f5153e32ccb2e334414e6a47d61c1f0eb1b54 Arya Gupta <aryagupta164@gmail.com> 1752195133 +0530	commit: Fixed question 1 solution with constraints
+c67f5153e32ccb2e334414e6a47d61c1f0eb1b54 b0c932e0f6ba416f435a5408a415eef2d7777437 Arya Gupta <aryagupta164@gmail.com> 1752339207 +0530	commit: Solved first 10 programs in C
+b0c932e0f6ba416f435a5408a415eef2d7777437 a32a3b15a1cf0ed495c63a41dd026d94e23c4319 Arya Gupta <aryagupta164@gmail.com> 1752408564 +0530	commit: Solved Week-1 for C
+a32a3b15a1cf0ed495c63a41dd026d94e23c4319 e5362e72cde68f0a08e73e7d1b5c1d15378729c2 Arya Gupta <aryagupta164@gmail.com> 1752409066 +0530	commit: Adding Readme
+e5362e72cde68f0a08e73e7d1b5c1d15378729c2 4626b35928537a95139f9f2430a03ad592ccc48f Arya Gupta <aryagupta164@gmail.com> 1752409186 +0530	commit: Finalizing readme
+4626b35928537a95139f9f2430a03ad592ccc48f 42625354608ceaa86a37fc7824c8f26929007827 Arya Gupta <aryagupta164@gmail.com> 1752409541 +0530	commit: Testing with Jupyter
+42625354608ceaa86a37fc7824c8f26929007827 6866e3a547d6a0c0cfb569afd4bdbbe87e0baf85 Arya Gupta <aryagupta164@gmail.com> 1752421621 +0530	commit: Solved Week-1 Python Questions
+6866e3a547d6a0c0cfb569afd4bdbbe87e0baf85 015b9f31b8478989ab33d90254e0bf5a1ecfcd70 Arya Gupta <aryagupta164@gmail.com> 1752421867 +0530	commit: Added Readme
+015b9f31b8478989ab33d90254e0bf5a1ecfcd70 5ed523f00d37be47a7de3cebf7076ace71af12aa Arya Gupta <aryagupta164@gmail.com> 1752422817 +0530	commit: Finalized Week-1
+5ed523f00d37be47a7de3cebf7076ace71af12aa 081fef6629f67b9fa2d5271c29be7c92e778ec0b Arya Gupta <aryagupta164@gmail.com> 1752661910 +0530	commit: Added Stack Short Note
+081fef6629f67b9fa2d5271c29be7c92e778ec0b 0b5a5d5d28946c23b27a5de5571367c7062f6d83 Arya Gupta <aryagupta164@gmail.com> 1752670778 +0530	commit: Added dynamic code templates for queue and stack
+0b5a5d5d28946c23b27a5de5571367c7062f6d83 6f7bbeda7b936f6c2a1a4cd2e0107b885dd113a2 Arya Gupta <aryagupta164@gmail.com> 1752671168 +0530	commit: Finalizing Readme
+6f7bbeda7b936f6c2a1a4cd2e0107b885dd113a2 b5fde7d68870b46c61cb6287b35758bf2c6bd6d8 Arya Gupta <aryagupta164@gmail.com> 1752691780 +0530	commit: Solved Week-2 20%
+b5fde7d68870b46c61cb6287b35758bf2c6bd6d8 1623ef494c7fe0da48152b7e0786dd7a0f5cde5a Arya Gupta <aryagupta164@gmail.com> 1753115981 +0530	commit: Prog-5 added
+1623ef494c7fe0da48152b7e0786dd7a0f5cde5a de5f2db159a98fcb07d9397e1d818ef170f5e6d3 Arya Gupta <aryagupta164@gmail.com> 1753116287 +0530	commit: Fixed resizing
+de5f2db159a98fcb07d9397e1d818ef170f5e6d3 d68520eb7a5c9c8c4802decb9a5a72d92edf1fc3 Arya Gupta <aryagupta164@gmail.com> 1753253274 +0530	commit: Week-2 C DONEEE!!
+d68520eb7a5c9c8c4802decb9a5a72d92edf1fc3 88a3cbcc1fe46f555db4a747fd52934414d262a0 Arya Gupta <aryagupta164@gmail.com> 1753274892 +0530	commit: Readme Added
+88a3cbcc1fe46f555db4a747fd52934414d262a0 a1afcb5d5ebfba4a7c0e19c737687d9205f906fa Arya Gupta <aryagupta164@gmail.com> 1753551813 +0530	commit: Added today's given code, 1 left tho
+a1afcb5d5ebfba4a7c0e19c737687d9205f906fa f520f315e44aabcc9220abc3f21c0b7d36c8ffe3 Arya Gupta <aryagupta164@gmail.com> 1753552024 +0530	commit: Still left
+f520f315e44aabcc9220abc3f21c0b7d36c8ffe3 ef7e60304a0655d0dd8cbd9946f0c105366c57b0 Arya Gupta <aryagupta164@gmail.com> 1753617802 +0530	commit: Week-2 Python Done
+ef7e60304a0655d0dd8cbd9946f0c105366c57b0 5c4c0fbf935a7e4be9f35b20e497bde8f6d82148 Arya Gupta <aryagupta164@gmail.com> 1753618002 +0530	commit: Finalized Color Sorter GUI
+5c4c0fbf935a7e4be9f35b20e497bde8f6d82148 f8c7e82660c1ea2aec96bc47e27538608f0ddd89 Arya Gupta <aryagupta164@gmail.com> 1753618153 +0530	commit: Added Readme
+f8c7e82660c1ea2aec96bc47e27538608f0ddd89 c83c030ff192e793d116a006be783eb5c6207be7 Arya Gupta <aryagupta164@gmail.com> 1762097271 +0530	commit: Added All Assignments
+c83c030ff192e793d116a006be783eb5c6207be7 a0eb2b68f88f1867b6e6475395b8bb9d97f517fe Arya Gupta <aryagupta164@gmail.com> 1762434407 +0530	commit: 3rd Semester Innovative Project(s) added
+a0eb2b68f88f1867b6e6475395b8bb9d97f517fe 4f2c10bcba0f5e1e689672934751a0239ee38a57 Arya Gupta <aryagupta164@gmail.com> 1762434996 +0530	commit: Removed keys
+4f2c10bcba0f5e1e689672934751a0239ee38a57 92bb546aca3a30ce622b70333f1297cbb9469692 Arya Gupta <aryagupta164@gmail.com> 1762435664 +0530	commit: Cleaned build files and updated .gitignore
+92bb546aca3a30ce622b70333f1297cbb9469692 ec6e6bee6c71e2e8582464b1d83266761c49e7c9 Arya Gupta <aryagupta164@gmail.com> 1762435779 +0530	commit (amend): Cleaned build files and updated .gitignore
+ec6e6bee6c71e2e8582464b1d83266761c49e7c9 37092de7093f3c2542e6d9b673ec58b469e7ad59 Arya Gupta <aryagupta164@gmail.com> 1762436119 +0530	commit: Re-added source HTML, CSS, and JS files for AI-Powered-CRM

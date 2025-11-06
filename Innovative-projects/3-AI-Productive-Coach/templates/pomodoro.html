@@ -1,0 +1,240 @@
+{% extends "base.html" %}
+
+{% block page_title %}Pomodoro Timer{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <!-- Timer Section -->
+    <div class="bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl shadow-xl p-8 text-white text-center mb-8">
+        <h2 class="text-3xl font-bold mb-2">Pomodoro Timer</h2>
+        <p class="text-red-100 mb-8">Stay focused with 25-minute work sessions</p>
+        
+        <div class="bg-white bg-opacity-20 rounded-xl p-8 backdrop-blur-sm">
+            <div class="text-8xl font-bold mb-6" id="timerDisplay">25:00</div>
+            
+            <div class="flex justify-center space-x-4 mb-6">
+                <button id="startBtn" onclick="startTimer()" class="bg-white text-red-500 px-8 py-3 rounded-lg font-semibold hover:bg-red-50 transition-all duration-200 shadow-lg">
+                    <i class="fas fa-play mr-2"></i>Start
+                </button>
+                <button id="pauseBtn" onclick="pauseTimer()" class="bg-yellow-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-yellow-600 transition-all duration-200 shadow-lg" style="display: none;">
+                    <i class="fas fa-pause mr-2"></i>Pause
+                </button>
+                <button id="stopBtn" onclick="stopTimer()" class="bg-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-700 transition-all duration-200 shadow-lg" style="display: none;">
+                    <i class="fas fa-stop mr-2"></i>Stop
+                </button>
+                <button onclick="resetTimer()" class="bg-gray-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-all duration-200 shadow-lg">
+                    <i class="fas fa-redo mr-2"></i>Reset
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+                <button onclick="setTimer(15)" class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-3 rounded-lg font-medium transition-all duration-200 border border-white border-opacity-30" data-minutes="15">
+                    <i class="fas fa-clock mr-2"></i>15min
+                </button>
+                <button onclick="setTimer(25)" class="bg-white text-red-500 px-4 py-3 rounded-lg font-medium transition-all duration-200 shadow-md" data-minutes="25">
+                    <i class="fas fa-fire mr-2"></i>25min
+                </button>
+                <button onclick="setTimer(30)" class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-3 rounded-lg font-medium transition-all duration-200 border border-white border-opacity-30" data-minutes="30">
+                    <i class="fas fa-clock mr-2"></i>30min
+                </button>
+                <button onclick="setTimer(45)" class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-3 rounded-lg font-medium transition-all duration-200 border border-white border-opacity-30" data-minutes="45">
+                    <i class="fas fa-clock mr-2"></i>45min
+                </button>
+                <button onclick="setTimer(5)" class="bg-green-500 bg-opacity-80 hover:bg-opacity-100 text-white px-4 py-3 rounded-lg font-medium transition-all duration-200" data-minutes="5">
+                    <i class="fas fa-coffee mr-2"></i>5min
+                </button>
+                <button onclick="setTimer(10)" class="bg-green-500 bg-opacity-80 hover:bg-opacity-100 text-white px-4 py-3 rounded-lg font-medium transition-all duration-200" data-minutes="10">
+                    <i class="fas fa-coffee mr-2"></i>10min
+                </button>
+                <button onclick="setTimer(60)" class="bg-blue-500 bg-opacity-80 hover:bg-opacity-100 text-white px-4 py-3 rounded-lg font-medium transition-all duration-200" data-minutes="60">
+                    <i class="fas fa-hourglass-half mr-2"></i>1 hour
+                </button>
+                <button onclick="setTimer(90)" class="bg-purple-500 bg-opacity-80 hover:bg-opacity-100 text-white px-4 py-3 rounded-lg font-medium transition-all duration-200" data-minutes="90">
+                    <i class="fas fa-hourglass mr-2"></i>1.5 hours
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Session Stats & Task Selection -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Current Session -->
+        <div class="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm p-6">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-[#f8f8f2] mb-4">Current Session</h3>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-[#c5c8c6] mb-2">Working on:</label>
+                    <select id="currentTask" class="w-full px-3 py-2 border border-gray-300 dark:border-[#3e3e3e] dark:bg-[#1e1e1e] dark:text-[#c5c8c6] rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                        <option value="">Select a task (optional)</option>
+                    </select>
+                </div>
+                
+                <div class="bg-blue-50 dark:bg-[#3e3e3e] rounded-lg p-3">
+                    <h4 class="font-medium text-gray-900 dark:text-[#f8f8f2] mb-2">Quick Actions</h4>
+                    <div class="space-y-2">
+                        <button onclick="startTaskTimer()" class="w-full bg-blue-600 text-white px-3 py-2 rounded text-sm hover:bg-blue-700">
+                            Start Timer for Selected Task
+                        </button>
+                        <button onclick="markTaskComplete()" class="w-full bg-green-600 text-white px-3 py-2 rounded text-sm hover:bg-green-700">
+                            Mark Task as Complete
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 dark:bg-[#3e3e3e] rounded-lg p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-medium text-gray-700 dark:text-[#c5c8c6]">Session Progress</span>
+                        <span class="text-sm text-gray-500 dark:text-[#7e8e91]" id="sessionProgress">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-[#1e1e1e] rounded-full h-2">
+                        <div class="bg-red-500 dark:bg-[#fc618d] h-2 rounded-full transition-all duration-1000" id="progressBar" style="width: 0%"></div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4 text-center">
+                    <div class="bg-red-50 dark:bg-[#3e3e3e] rounded-lg p-3">
+                        <div class="text-2xl font-bold text-red-600 dark:text-[#fc618d]" id="sessionsToday">0</div>
+                        <div class="text-sm text-gray-600 dark:text-[#7e8e91]">Sessions Today</div>
+                    </div>
+                    <div class="bg-green-50 dark:bg-[#3e3e3e] rounded-lg p-3">
+                        <div class="text-2xl font-bold text-green-600 dark:text-[#a9dc76]" id="totalFocusTime">0m</div>
+                        <div class="text-sm text-gray-600 dark:text-[#7e8e91]">Total Focus Time</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Sessions -->
+        <div class="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm p-6">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-[#f8f8f2] mb-4">Recent Sessions</h3>
+            <div id="recentSessions" class="space-y-3">
+                <!-- Sessions will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Tips Section -->
+    <div class="bg-white dark:bg-[#2a2a2a] rounded-xl shadow-sm p-6 mt-8">
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-[#f8f8f2] mb-4">Pomodoro Tips</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="text-center p-4 bg-red-50 dark:bg-[#3e3e3e] rounded-lg">
+                <i class="fas fa-bullseye text-red-500 dark:text-[#fc618d] text-2xl mb-2"></i>
+                <h4 class="font-medium text-gray-900 dark:text-[#f8f8f2] mb-1">Stay Focused</h4>
+                <p class="text-sm text-gray-600 dark:text-[#7e8e91]">Eliminate distractions during work sessions</p>
+            </div>
+            <div class="text-center p-4 bg-blue-50 dark:bg-[#3e3e3e] rounded-lg">
+                <i class="fas fa-coffee text-blue-500 dark:text-[#78dce8] text-2xl mb-2"></i>
+                <h4 class="font-medium text-gray-900 dark:text-[#f8f8f2] mb-1">Take Breaks</h4>
+                <p class="text-sm text-gray-600 dark:text-[#7e8e91]">Use breaks to rest and recharge</p>
+            </div>
+            <div class="text-center p-4 bg-green-50 dark:bg-[#3e3e3e] rounded-lg">
+                <i class="fas fa-chart-line text-green-500 dark:text-[#a9dc76] text-2xl mb-2"></i>
+                <h4 class="font-medium text-gray-900 dark:text-[#f8f8f2] mb-1">Track Progress</h4>
+                <p class="text-sm text-gray-600 dark:text-[#7e8e91]">Monitor your productivity patterns</p>
+            </div>
+            <div class="text-center p-4 bg-purple-50 dark:bg-[#3e3e3e] rounded-lg">
+                <i class="fas fa-sync text-purple-500 dark:text-[#ab9df2] text-2xl mb-2"></i>
+                <h4 class="font-medium text-gray-900 dark:text-[#f8f8f2] mb-1">Be Consistent</h4>
+                <p class="text-sm text-gray-600 dark:text-[#7e8e91]">Regular sessions build good habits</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.timer-preset {
+    @apply px-4 py-2 rounded-lg bg-white bg-opacity-20 text-white hover:bg-opacity-30 transition-colors;
+}
+.timer-preset.active {
+    @apply bg-white text-red-500;
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    loadTasks();
+    loadSessionStats();
+});
+
+function loadTasks() {
+    fetch('/api/tasks')
+        .then(response => response.json())
+        .then(tasks => {
+            const select = document.getElementById('currentTask');
+            const pendingTasks = tasks.filter(task => task.status === 'pending');
+            
+            select.innerHTML = '<option value="">Select a task (optional)</option>' +
+                pendingTasks.map(task => `<option value="${task.id}">${task.title}</option>`).join('');
+        });
+}
+
+function loadSessionStats() {
+    // Load today's sessions
+    fetch('/api/analytics')
+        .then(response => response.json())
+        .then(data => {
+            const today = new Date().toISOString().split('T')[0];
+            const todayTime = data.daily_time.find(d => d.date === today);
+            
+            document.getElementById('totalFocusTime').textContent = (todayTime?.total_time || 0) + 'm';
+            document.getElementById('sessionsToday').textContent = Math.floor((todayTime?.total_time || 0) / 25);
+        });
+}
+
+function setTimer(minutes) {
+    Timer.setTime(minutes);
+    
+    document.querySelectorAll('[data-minutes]').forEach(btn => {
+        btn.classList.remove('bg-white', 'text-red-500', 'shadow-md');
+        btn.classList.add('bg-white', 'bg-opacity-20', 'hover:bg-opacity-30', 'text-white', 'border', 'border-white', 'border-opacity-30');
+    });
+    
+    const activeBtn = document.querySelector(`[data-minutes="${minutes}"]`);
+    if (activeBtn) {
+        activeBtn.classList.remove('bg-white', 'bg-opacity-20', 'hover:bg-opacity-30', 'text-white', 'border', 'border-white', 'border-opacity-30');
+        activeBtn.classList.add('bg-white', 'text-red-500', 'shadow-md');
+    }
+}
+
+function startTaskTimer() {
+    const taskSelect = document.getElementById('currentTask');
+    if (!taskSelect.value) {
+        alert('Please select a task first');
+        return;
+    }
+    
+    fetch('/api/tasks')
+        .then(r => r.json())
+        .then(tasks => {
+            const task = tasks.find(t => t.id == taskSelect.value);
+            if (task) {
+                setTimer(task.estimated_time || 25);
+                Timer.start();
+                alert(`Started timer for: ${task.title}`);
+            }
+        });
+}
+
+function markTaskComplete() {
+    const taskSelect = document.getElementById('currentTask');
+    if (!taskSelect.value) {
+        alert('Please select a task first');
+        return;
+    }
+    
+    fetch(`/api/tasks/${taskSelect.value}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({status: 'completed'})
+    })
+    .then(() => {
+        loadTasks();
+        loadSessionStats();
+        alert('Task marked as complete!');
+    });
+}
+</script>
+{% endblock %}

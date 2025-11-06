@@ -1,0 +1,20 @@
+DASHBOARD SHOWING ZEROS?
+========================
+
+YOU MUST VISIT THIS URL FIRST:
+http://localhost:5000/use-demo-data
+
+This switches you to the demo user account with all the populated data.
+
+Then refresh the dashboard and you'll see:
+- Total Tasks: 41
+- Completed: 28
+- Focus Time: 1018m
+- Pending: 13
+- AI insights
+- Charts with data
+
+WHY?
+Each time you visit the site, it creates a NEW random user.
+The demo data is for user "demo-user-12345".
+You need to switch to that user first!

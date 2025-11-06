@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leads - CRM Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @keyframes fade-in {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes gradient-bg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .fade-in { animation: fade-in 0.6s ease-out forwards; }
+        .gradient-bg { 
+            background: linear-gradient(-45deg, #f8fafc, #e2e8f0, #cbd5e1, #94a3b8);
+            background-size: 400% 400%;
+            animation: gradient-bg 20s ease infinite;
+        }
+        .dark .gradient-bg {
+            background: linear-gradient(-45deg, #0f172a, #1e293b, #334155, #475569);
+        }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .dark .card-hover:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+</head>
+<body class="h-full gradient-bg">
+    <!-- Navigation -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header -->
+        <div class="mb-8 fade-in">
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                <i class="fas fa-star text-yellow-500 mr-3"></i>Lead Management
+            </h1>
+            <p class="text-gray-600 dark:text-gray-400">Track and nurture your most promising prospects</p>
+        </div>
+        
+        <!-- Leads Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div th:each="customer, iterStat : ${customers}" class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 card-hover fade-in" th:style="'animation-delay: ' + ${iterStat.index * 0.1} + 's;'">
+                <!-- Customer Header -->
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center text-white font-semibold">
+                            <span th:text="${#strings.substring(customer.firstName, 0, 1)}">J</span>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900 dark:text-white" th:text="${customer.fullName}">Customer Name</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Lead ID: <span th:text="${customer.id}">1</span></p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="inline-block px-3 py-1 text-sm font-medium rounded-full"
+                              th:class="'inline-block px-3 py-1 text-sm font-medium rounded-full ' + (${customer.leadScore >= 75} ? 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300' : (${customer.leadScore >= 50} ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300' : (${customer.leadScore >= 25} ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/50 dark:text-orange-300' : 'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300')))"
+                              th:text="${customer.leadScore}">85</span>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Score</p>
+                    </div>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="space-y-2 mb-6">
+                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                        <i class="fas fa-envelope w-4 mr-2 text-blue-500"></i>
+                        <span th:text="${customer.email}">email@example.com</span>
+                    </div>
+                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                        <i class="fas fa-building w-4 mr-2 text-purple-500"></i>
+                        <span th:text="${customer.company ?: 'No company'}">Company</span>
+                    </div>
+                    <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                        <i class="fas fa-phone w-4 mr-2 text-green-500"></i>
+                        <span th:text="${customer.phone ?: 'No phone'}">Phone</span>
+                    </div>
+                </div>
+                
+                <!-- Actions -->
+                <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <a th:href="@{/customers/{id}(id=${customer.id})}" class="px-4 py-2 bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/20 dark:hover:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg text-sm font-medium transition-colors">
+                        <i class="fas fa-eye mr-1"></i> View Details
+                    </a>
+                    
+                    <form th:action="@{/customers/{id}/score(id=${customer.id})}" method="post" class="flex items-center space-x-2">
+                        <input type="number" name="score" th:value="${customer.leadScore}" min="0" max="100" 
+                               class="w-16 px-2 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                        <button type="submit" class="px-3 py-1 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-md text-sm transition-colors">
+                            <i class="fas fa-save"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Empty State -->
+            <div th:if="${customers.empty}" class="col-span-full">
+                <div class="text-center py-12">
+                    <div class="w-24 h-24 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-star text-3xl text-gray-400"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">No leads found</h3>
+                    <p class="text-gray-500 dark:text-gray-400 mb-6">Start building your sales pipeline by adding leads</p>
+                    <a href="/customers/new" class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">
+                        <i class="fas fa-plus mr-2"></i>Add Your First Lead
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lead Scoring Guide -->
+        <div class="mt-12 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 fade-in" style="animation-delay: 0.8s;">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-6">
+                <i class="fas fa-info-circle text-blue-500 mr-2"></i>Lead Scoring Guide
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="text-center p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                    <div class="w-12 h-12 bg-red-100 dark:bg-red-900/50 rounded-full flex items-center justify-center text-red-600 dark:text-red-400 font-bold mx-auto mb-2">
+                        0-25
+                    </div>
+                    <h4 class="font-medium text-gray-900 dark:text-white mb-1">Cold Lead</h4>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Low engagement</p>
+                </div>
+                <div class="text-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
+                    <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900/50 rounded-full flex items-center justify-center text-orange-600 dark:text-orange-400 font-bold mx-auto mb-2">
+                        26-50
+                    </div>
+                    <h4 class="font-medium text-gray-900 dark:text-white mb-1">Warm Lead</h4>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Showing interest</p>
+                </div>
+                <div class="text-center p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
+                    <div class="w-12 h-12 bg-yellow-100 dark:bg-yellow-900/50 rounded-full flex items-center justify-center text-yellow-600 dark:text-yellow-400 font-bold mx-auto mb-2">
+                        51-75
+                    </div>
+                    <h4 class="font-medium text-gray-900 dark:text-white mb-1">Hot Lead</h4>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">High potential</p>
+                </div>
+                <div class="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900/50 rounded-full flex items-center justify-center text-green-600 dark:text-green-400 font-bold mx-auto mb-2">
+                        76-100
+                    </div>
+                    <h4 class="font-medium text-gray-900 dark:text-white mb-1">Ready to Buy</h4>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Immediate action</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="fragments/navbar :: darkmode-script"></div>
+</body>
+</html>

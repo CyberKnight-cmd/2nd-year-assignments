@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Form - CRM Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @keyframes fade-in {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes gradient-bg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .fade-in { animation: fade-in 0.6s ease-out forwards; }
+        .gradient-bg { 
+            background: linear-gradient(-45deg, #f8fafc, #e2e8f0, #cbd5e1, #94a3b8);
+            background-size: 400% 400%;
+            animation: gradient-bg 20s ease infinite;
+        }
+        .dark .gradient-bg {
+            background: linear-gradient(-45deg, #0f172a, #1e293b, #334155, #475569);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+</head>
+<body class="h-full gradient-bg">
+    <!-- Navigation -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <!-- Main Content -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header -->
+        <div class="mb-8 fade-in">
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                <i class="fas fa-user-plus text-blue-600 mr-3"></i>
+                <span th:text="${customer.id != null} ? 'Edit Customer' : 'Add New Customer'">Add New Customer</span>
+            </h1>
+            <p class="text-gray-600 dark:text-gray-400">Fill in the customer information below</p>
+        </div>
+
+        <!-- Form -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 fade-in" style="animation-delay: 0.2s;">
+            <form th:action="@{/customers}" th:object="${customer}" method="post" class="space-y-6">
+                <input type="hidden" th:field="*{id}">
+                
+                <!-- Personal Information Section -->
+                <div>
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4 flex items-center">
+                        <i class="fas fa-user text-blue-500 mr-2"></i>Personal Information
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="firstName" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                First Name <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" th:field="*{firstName}" required
+                                   class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all">
+                        </div>
+                        <div>
+                            <label for="lastName" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Last Name <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" th:field="*{lastName}" required
+                                   class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Information Section -->
+                <div>
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4 flex items-center">
+                        <i class="fas fa-address-book text-green-500 mr-2"></i>Contact Information
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Email Address <span class="text-red-500">*</span>
+                            </label>
+                            <input type="email" th:field="*{email}" required
+                                   class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Phone Number
+                            </label>
+                            <input type="tel" th:field="*{phone}"
+                                   class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Business Information Section -->
+                <div>
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4 flex items-center">
+                        <i class="fas fa-briefcase text-purple-500 mr-2"></i>Business Information
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="company" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Company
+                            </label>
+                            <input type="text" th:field="*{company}"
+                                   class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all">
+                        </div>
+                        <div>
+                            <label for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Status
+                            </label>
+                            <select th:field="*{status}"
+                                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all">
+                                <option value="LEAD">🟡 Lead</option>
+                                <option value="PROSPECT">🔵 Prospect</option>
+                                <option value="CUSTOMER">🟢 Customer</option>
+                                <option value="INACTIVE">⚫ Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lead Score Section -->
+                <div>
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4 flex items-center">
+                        <i class="fas fa-star text-yellow-500 mr-2"></i>Lead Scoring
+                    </h3>
+                    <div>
+                        <label for="leadScore" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Lead Score (0-100)
+                        </label>
+                        <input type="number" th:field="*{leadScore}" min="0" max="100"
+                               class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all">
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Higher scores indicate better conversion potential</p>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex justify-between pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <a href="/customers" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg transition-colors font-medium">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Customers
+                    </a>
+                    <button type="submit" class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium">
+                        <i class="fas fa-save mr-2"></i>Save Customer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div th:replace="fragments/navbar :: darkmode-script"></div>
+</body>
+</html>
